@@ -1,6 +1,6 @@
-# TypeScript Express API Bootstrap (base / project starter)
+# Congestion taxt calculor
 
-This is a repository intended to serve as a starting point if you want to bootstrap a express API project in TypeScript.
+API presented solution to solve Volvos technical interview
 
 ## Features
 
@@ -46,3 +46,10 @@ npm run lint
 # fix lint issues
 npm run lint:fix
 ```
+
+## Process and assumptions
+
+## Acknowledgements
+
+- [Base skeleton](https://github.com/CodelyTV/typescript-api-skeleton)
+-
