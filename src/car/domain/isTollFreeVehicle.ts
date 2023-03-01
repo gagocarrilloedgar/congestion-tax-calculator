@@ -1,8 +1,5 @@
 import { TollFreeVehicles } from "./constants";
-import { Vehicle } from "./Vehicle";
 
-export function isTollFreeVehicle(vehicle: Vehicle): boolean {
-	const vehicleType: string = vehicle.getVehicleType();
-
+export function isTollFreeVehicle(vehicleType: TollFreeVehicles | string): boolean {
 	return Object.keys(TollFreeVehicles).includes(vehicleType);
 }

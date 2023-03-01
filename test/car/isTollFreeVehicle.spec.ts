@@ -7,7 +7,7 @@ describe("isTollFreeVehicle", () => {
 	it("should return false if Card vehicle", () => {
 		const vehicle = new Car();
 		const expected = false;
-		const result = isTollFreeVehicle(vehicle);
+		const result = isTollFreeVehicle(vehicle.getVehicleType());
 
 		expect(result).toBe(expected);
 	});
@@ -15,7 +15,7 @@ describe("isTollFreeVehicle", () => {
 	it("should return true if Motorbike vehicle", () => {
 		const vehicle = new Motorbike();
 		const expected = true;
-		const result = isTollFreeVehicle(vehicle);
+		const result = isTollFreeVehicle(vehicle.getVehicleType());
 
 		expect(result).toBe(expected);
 	});
