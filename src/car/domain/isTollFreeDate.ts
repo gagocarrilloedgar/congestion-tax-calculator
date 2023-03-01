@@ -32,7 +32,17 @@ export function isTollFreeDate(date: Date): boolean {
 
 	if (TollFreeDates[year][month].includes(dayOfMonth)) return true;
 
+	const priorToHoliday = isPriorToHoliday(dayOfMonth, month, year);
+
+	if (priorToHoliday) return true;
+
 	return false;
 }
 
 export const isSundayOrSaturday = (day: number): boolean => day === SATURDAY || day === SUNDAY;
+
+export const isPriorToHoliday = (dayOfMonth: number, month: number, year: number): boolean => {
+	const priorToHoliday = TollFreeDates[year][month].find((holiday) => dayOfMonth === holiday - 1);
+
+	return !!priorToHoliday;
+};

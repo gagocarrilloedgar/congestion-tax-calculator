@@ -32,4 +32,12 @@ describe("isTollFreeDate", () => {
 
 		expect(result).toBe(expected);
 	});
+
+	it("If prior to holiday should return true", () => {
+		const date = new Date("2013-03-27");
+		const expected = true;
+		const result = isTollFreeDate(date);
+
+		expect(result).toBe(expected);
+	});
 });
