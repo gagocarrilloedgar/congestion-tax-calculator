@@ -47,7 +47,11 @@ npm run lint
 npm run lint:fix
 ```
 
-## Process and assumptions
+## Change log
+
+- Clone skeleton and adapt to use cose
+- Rename class files using proper casing style
+- 
 
 ## Acknowledgements
 
