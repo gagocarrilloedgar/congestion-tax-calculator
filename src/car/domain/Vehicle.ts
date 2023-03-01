@@ -1,4 +1,3 @@
-interface Vehicle {
+export interface Vehicle {
 	getVehicleType(): string;
 }
-export default Vehicle;

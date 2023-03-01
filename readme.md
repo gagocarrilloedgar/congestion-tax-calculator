@@ -51,7 +51,9 @@ npm run lint:fix
 
 - Clone skeleton and adapt to use cose
 - Rename class files using proper casing style
-- 
+- Add health check and entry point testing
+- Rename == over === to improve type integrity
+- Remove vehicle null check as they have no overlap
 
 ## Acknowledgements
 

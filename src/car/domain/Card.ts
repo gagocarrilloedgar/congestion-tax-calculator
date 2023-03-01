@@ -1,4 +1,4 @@
-import Vehicle from "./Vehicle";
+import { Vehicle } from "./Vehicle";
 
 export class Car implements Vehicle {
 	getVehicleType(): string {

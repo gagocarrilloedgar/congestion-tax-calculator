@@ -1,7 +1,7 @@
-import Vehicle from "./Vehicle";
-
+import { Vehicle } from "./Vehicle";
+import { TollFreeVehicles } from "./constants";
 export default class Motorbike implements Vehicle {
 	getVehicleType(): string {
-		return "Motorbike";
+		return TollFreeVehicles.Motorcycle
 	}
 }
