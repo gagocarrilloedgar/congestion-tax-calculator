@@ -1,7 +1,7 @@
-import { VehicleType } from "../domain/constants";
+import { VehicleTypes } from "../../Shared/domain/VehicleType";
 
 export interface TaxCalculatorResponse {
 	taxFee: number;
-	vehicleType: VehicleType;
+	vehicleType: VehicleTypes;
 	error: string | null;
 }

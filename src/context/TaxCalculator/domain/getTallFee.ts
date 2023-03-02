@@ -1,6 +1,5 @@
-import { VehicleType } from "./constants";
+import { Vehicle } from "../../Shared/domain/Vehicle";
 import { isTollFreeDate } from "./isTollFreeDate";
-import { isTollFreeVehicle } from "./isTollFreeVehicle";
 
 interface Schdeule {
 	start: string;
@@ -12,8 +11,8 @@ export interface TaxPrices {
 	schedule: Schdeule[];
 }
 
-export function getTollFee(date: Date, vehicleType: VehicleType, taxRules: TaxPrices[]): number {
-	if (isTollFreeDate(date) || isTollFreeVehicle(vehicleType)) return 0;
+export function getTollFee(date: Date, vehicle: Vehicle, taxRules: TaxPrices[]): number {
+	if (isTollFreeDate(date) || vehicle.isTollFree()) return 0;
 
 	const hour: number = date.getHours();
 	const minute: number = date.getMinutes();

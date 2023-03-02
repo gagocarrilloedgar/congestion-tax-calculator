@@ -1,4 +1,4 @@
-import { VehicleType } from "./constants";
+import { Vehicle } from "../../Shared/domain/Vehicle";
 import { getTollFee, TaxPrices } from "./getTallFee";
 
 export interface ITaxCalculator {
@@ -6,24 +6,24 @@ export interface ITaxCalculator {
 }
 
 export class TaxCalculator implements ITaxCalculator {
-	vehicleType: VehicleType;
+	vehicle: Vehicle;
 	taxPrices: TaxPrices[];
 	MAXIMUM_FEE = 60;
 	MAXIMUM_INTERVAL = 60;
 	MINIMUM_FEE = 0;
 
-	constructor(vehicleType: VehicleType, taxPrices: TaxPrices[]) {
-		this.vehicleType = vehicleType;
+	constructor(vehicle: Vehicle, taxPrices: TaxPrices[]) {
+		this.vehicle = vehicle;
 		this.taxPrices = taxPrices;
 	}
 
-	private getDailyTax(type: VehicleType, dates: Date[]): number {
+	private getDailyTax(dates: Date[]): number {
 		let totalFee = this.MINIMUM_FEE;
 
 		for (let i = 0; i < dates.length; i++) {
-			const date = dates[i] as Date;
+			const date = dates[i];
 			if (i === 0 || this.hasExccededMaxInterval(dates[i - 1], date))
-				totalFee += getTollFee(date, type, this.taxPrices);
+				totalFee += getTollFee(date, this.vehicle, this.taxPrices);
 		}
 
 		return totalFee > this.MAXIMUM_FEE ? this.MAXIMUM_FEE : totalFee;
@@ -48,8 +48,7 @@ export class TaxCalculator implements ITaxCalculator {
 
 		const totalTax = Object.keys(groupedDates).reduce((acc: number, key: string) => {
 			const dates = groupedDates[key];
-			const vehicleType = this.vehicleType;
-			const tax = this.getDailyTax(vehicleType, dates);
+			const tax = this.getDailyTax(dates);
 
 			return acc + tax;
 		}, 0);

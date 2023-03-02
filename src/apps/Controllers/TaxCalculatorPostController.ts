@@ -2,21 +2,21 @@ import { Request, Response } from "express";
 
 import { Controller } from "./Controller";
 
+import { Vehicle } from "../../context/Shared/domain/Vehicle";
 import { GetTaxCalculator } from "../../context/TaxCalculator/application/GetTaxCalculator";
-import { VehicleType } from "../../context/TaxCalculator/domain/constants";
 
 export class TaxCalculatorPostController implements Controller {
 	async run(req: Request, res: Response) {
 		try {
 			const { vehicleType, dates, city } = req.body as {
-				vehicleType: VehicleType;
+				vehicleType: string;
 				dates: Date[];
 				city: string;
 			};
 
 			const taxCalculator = new GetTaxCalculator(city);
-
-			const taxCalculatorResponse = taxCalculator.execute(vehicleType, dates);
+			const vehicle = Vehicle.fromValue(vehicleType);
+			const taxCalculatorResponse = taxCalculator.execute(vehicle, dates);
 
 			const httpStatus = taxCalculatorResponse.error ? 400 : 200;
 
