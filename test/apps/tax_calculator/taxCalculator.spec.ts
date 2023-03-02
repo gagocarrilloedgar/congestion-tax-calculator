@@ -18,6 +18,7 @@ describe("POST /api/tax-calculator", () => {
 			.post("/api/tax-calculator")
 			.send({
 				vehicleType: "Car",
+				city: "Gothenburg",
 				dates: firstIteration
 			})
 			.expect(200)
@@ -34,6 +35,7 @@ describe("POST /api/tax-calculator", () => {
 			.post("/api/tax-calculator")
 			.send({
 				vehicleType: "",
+				city: "Gothenburg",
 				dates: firstIteration
 			})
 			.expect(400)
