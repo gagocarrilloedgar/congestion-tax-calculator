@@ -1,6 +1,6 @@
+import { VehicleType } from "./constants";
 import { isTollFreeDate } from "./isTollFreeDate";
 import { isTollFreeVehicle } from "./isTollFreeVehicle";
-import { Vehicle } from "./Vehicle";
 
 export enum TaxPrices {
 	Free = 0,
@@ -40,8 +40,8 @@ const TaxPricesSchedule = [
 	}
 ];
 
-export function getTollFee(date: Date, vechicle: Vehicle): number {
-	if (isTollFreeDate(date) || isTollFreeVehicle(vechicle.getVehicleType())) return 0;
+export function getTollFee(date: Date, vehicleType: VehicleType): number {
+	if (isTollFreeDate(date) || isTollFreeVehicle(vehicleType)) return 0;
 
 	const hour: number = date.getHours();
 	const minute: number = date.getMinutes();

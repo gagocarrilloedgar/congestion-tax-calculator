@@ -1,7 +1,7 @@
 import express from "express";
 import path from "path";
 
-import { loadApiEndpoints } from "./controllers/api";
+import { loadApiEndpoints } from "./apps/routes";
 import { ServerConfig } from "./shared/config";
 
 // Create Express server

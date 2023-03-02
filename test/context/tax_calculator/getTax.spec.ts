@@ -1,6 +1,9 @@
-import { Car } from "../../../src/context/TaxCalculator/domain/Card";
-import { getTotalTax } from "../../../src/context/TaxCalculator/domain/congestionTaxCalculator";
-import Motorbike from "../../../src/context/TaxCalculator/domain/Motorbike";
+import {
+	NonTollFreeVehicles,
+	TollFreeVehicles
+} from "../../../src/context/TaxCalculator/domain/constants";
+
+import { TaxCalculator } from "../../../src/context/TaxCalculator/domain/TaxCalculator";
 
 const firstIteration = [
 	"2013-01-14 06:00:00", // 8
@@ -29,36 +32,36 @@ const secondIteration = [
 
 describe("getTax", () => {
 	const globalFormated: Date[] = firstIteration.map((date: string) => new Date(date));
+	const car = NonTollFreeVehicles.Car;
+	const taxCalculator = new TaxCalculator(car);
 
 	it("Should return 76 for the given times", () => {
-		const car = new Car();
 		const expected = 76;
-		const result = getTotalTax(car, globalFormated);
+		const result = taxCalculator.getTax(globalFormated);
 
 		expect(result).toBe(expected);
 	});
 
 	it("Should return 115 for the given times", () => {
 		const formatedDates = secondIteration.map((date: string) => new Date(date));
-
-		const car = new Car();
 		const expected = 136;
-		const result = getTotalTax(car, formatedDates);
+		const result = taxCalculator.getTax(formatedDates);
+
 		expect(result).toBe(expected);
 	});
 
 	it("Should return 0 if no dates are given", () => {
-		const car = new Car();
 		const expected = 0;
-		const result = getTotalTax(car, []);
+		const result = taxCalculator.getTax([]);
 
 		expect(result).toBe(expected);
 	});
 
 	it("Should return 0 if is a toll free Vehicle", () => {
-		const motorbike = new Motorbike();
+		const motorbike = TollFreeVehicles.Motorcycle;
+		const taxCalculatorMotorbike = new TaxCalculator(motorbike);
 		const expected = 0;
-		const result = getTotalTax(motorbike, globalFormated);
+		const result = taxCalculatorMotorbike.getTax(globalFormated);
 
 		expect(result).toBe(expected);
 	});

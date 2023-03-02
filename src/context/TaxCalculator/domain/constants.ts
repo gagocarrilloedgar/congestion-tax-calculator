@@ -1,10 +1,17 @@
 enum TollFreeVehicles {
-	Motorcycle = "Motorcycle",
-	Tractor = "Tractor",
 	Emergency = "Emergency",
+	Busses = "Busses",
 	Diplomat = "Diplomat",
+	Motorcycle = "Motorcycle",
 	Foreign = "Foreign",
 	Military = "Military"
 }
 
-export { TollFreeVehicles };
+enum NonTollFreeVehicles {
+	Car = "Car",
+	Tractor = "Tractor"
+}
+
+type VehicleType = TollFreeVehicles | NonTollFreeVehicles;
+
+export { TollFreeVehicles, VehicleType, NonTollFreeVehicles };

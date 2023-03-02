@@ -1,21 +1,22 @@
-import { Car } from "../../../src/context/TaxCalculator/domain/Card";
-import Motorbike from "../../../src/context/TaxCalculator/domain/Motorbike";
-
+import {
+	NonTollFreeVehicles,
+	TollFreeVehicles
+} from "../../../src/context/TaxCalculator/domain/constants";
 import { isTollFreeVehicle } from "../../../src/context/TaxCalculator/domain/isTollFreeVehicle";
 
 describe("isTollFreeVehicle", () => {
 	it("should return false if Card vehicle", () => {
-		const vehicle = new Car();
+		const car = NonTollFreeVehicles.Car;
 		const expected = false;
-		const result = isTollFreeVehicle(vehicle.getVehicleType());
+		const result = isTollFreeVehicle(car);
 
 		expect(result).toBe(expected);
 	});
 
 	it("should return true if Motorbike vehicle", () => {
-		const vehicle = new Motorbike();
+		const motorbike = TollFreeVehicles.Motorcycle;
 		const expected = true;
-		const result = isTollFreeVehicle(vehicle.getVehicleType());
+		const result = isTollFreeVehicle(motorbike);
 
 		expect(result).toBe(expected);
 	});

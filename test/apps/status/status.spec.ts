@@ -1,11 +1,11 @@
 import request from "supertest";
 
-import app from "../../src/app";
+import app from "../../../src/app";
 
-describe("GET /api/health-check", () => {
-	it("should return 200 OK", () => {
+describe("GET /api/status", () => {
+	it("Should return 200 OK", () => {
 		return request(app)
-			.get("/api/health-check")
+			.get("/api/status")
 			.expect(200)
 			.expect("Content-Type", /json/)
 			.expect({ message: "OK" });

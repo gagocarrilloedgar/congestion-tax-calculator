@@ -57,6 +57,9 @@ npm run lint:fix
 - Rename == over === to improve type integrity
 - Remove vehicle null check as they have no overlap
 - Refactor both isTfollFreeDate and isTollFreeVehicle so its tollearable to change
+- Refactor getTax and add the possibility to handle multiple days.
+- Refactor a bit Vehicle as for me the way it is proposed it doesn't make a lot of sense (we are handling taxble and nontaxable vehicles).
+- Fix tests so it handles new vehicle refactor.
 - (Question) Looking on the internet appeared more Holidays thatn the ones added on the given code. As I was not sure which ones were holidays and which ones were prior, I left the given holidays and included a function to check days prior to holidays.
 
 ## Acknowledgements
