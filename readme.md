@@ -17,17 +17,17 @@ https://github.com/volvo-cars/congestion-tax-calculator
 
 ## Running the app
 
-```
-# install dependencies
+```sh
+# Install dependencies
 npm install
 
-# run in dev mode on port 3000
+# Run in dev mode on port 3000
 npm run dev
 
-# generate production build
+# Generate production build
 npm run build
 
-# run generated content in dist folder on port 3000
+# Run generated content in dist folder on port 3000
 npm run start
 ```
 
@@ -140,3 +140,5 @@ npm run lint:fix
 - Add Exception handler to the server
 - Add 404 route handler
 - Add conventional commit lintern (commitlint)
+- Maybe use some holidays library so we don't need to manually set that
+- Dockerize app
