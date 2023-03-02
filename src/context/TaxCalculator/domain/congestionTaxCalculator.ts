@@ -1,43 +1,27 @@
 import { getTollFee } from "./getTallFee";
 import { Vehicle } from "./Vehicle";
 
-enum TollFreeVehicles {
-	Motorcycle,
-	Tractor,
-	Emergency,
-	Diplomat,
-	Foreign,
-	Military
-}
-
 const MAXIMUM_FEE = 60;
 const MAXIMUM_INTERVAL = 60;
 const MINIMUM_FEE = 0;
 
 export function getTax(vehicle: Vehicle, dates: Date[]): number {
-	const intervalStart: Date = dates[0];
-	let totalFee = 0;
+	let totalFee = MINIMUM_FEE;
 
-	for (const date of dates) {
-		const nextFee = getTollFee(date, vehicle);
-		let tempFee = getTollFee(intervalStart, vehicle);
-
-		const diffInMillies = date.getTime() - intervalStart.getTime();
-		const minutes = diffInMillies / 1000 / 60;
-
-		if (minutes <= MAXIMUM_INTERVAL) {
-			if (totalFee > MINIMUM_FEE) totalFee -= tempFee;
-			if (nextFee >= tempFee) tempFee = nextFee;
-			totalFee += tempFee;
-		} else {
-			totalFee += nextFee;
-		}
-
-		if (totalFee > MAXIMUM_FEE) totalFee = MAXIMUM_FEE;
+	for (let i = 0; i < dates.length; i++) {
+		const date = dates[i] as Date;
+		if (i === 0 || hasExccededMaxInterval(dates[i - 1], date))
+			totalFee += getTollFee(date, vehicle);
 	}
 
-	return totalFee;
+	return totalFee > MAXIMUM_FEE ? MAXIMUM_FEE : totalFee;
 }
+
+export const hasExccededMaxInterval = (date1: Date, date2: Date): boolean => {
+	const diffInMillies = date1.getTime() - date2.getTime();
+	const minutes = diffInMillies / 1000 / 60;
+	return minutes <= MAXIMUM_INTERVAL;
+};
 
 export const getTotalTax = (vehicle: Vehicle, dates: Date[]): number => {
 	const groupedDates = dates.reduce((acc: any, date: Date) => {
