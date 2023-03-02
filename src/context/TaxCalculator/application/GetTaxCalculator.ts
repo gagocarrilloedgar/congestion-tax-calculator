@@ -1,8 +1,21 @@
+import * as taxRules from "../../../../data/taxRules.json";
+
 import { NonTollFreeVehicles, TollFreeVehicles, VehicleType } from "../domain/constants";
+import { TaxPrices } from "../domain/getTallFee";
 import { TaxCalculator } from "../domain/TaxCalculator";
 import { TaxCalculatorResponse } from "./TaxCalculatorResponse";
 
 export class GetTaxCalculator {
+	city: string;
+	taxRules: { [key: string]: TaxPrices[] };
+	taxPrices: TaxPrices[];
+
+	constructor(city: string) {
+		this.city = city;
+		this.taxRules = taxRules as unknown as { [key: string]: TaxPrices[] };
+		this.taxPrices = this.getTaxRules(city);
+	}
+
 	execute(vehicleType: VehicleType, dates: Date[]): TaxCalculatorResponse {
 		const isAllowedVehicleType = this.isAllowedVehicleType(vehicleType);
 		if (!isAllowedVehicleType)
@@ -12,7 +25,7 @@ export class GetTaxCalculator {
 				error: "Vehicle type not allowed"
 			};
 
-		const taxCalculator = new TaxCalculator(vehicleType);
+		const taxCalculator = new TaxCalculator(vehicleType, this.taxPrices);
 		const formatedDates = dates.map((date) => new Date(date));
 
 		const taxFee = taxCalculator.getTax(formatedDates);
@@ -23,6 +36,13 @@ export class GetTaxCalculator {
 			error: null
 		};
 	}
+
+	private getTaxRules = (city: string): TaxPrices[] => {
+		const allowedCities = Object.keys(this.taxRules);
+		const isAllowedCity = allowedCities.includes(city);
+
+		return isAllowedCity ? this.taxRules[city] : this.taxRules["Gothenburg"];
+	};
 
 	private isAllowedVehicleType(vehicleType: VehicleType): boolean {
 		return (

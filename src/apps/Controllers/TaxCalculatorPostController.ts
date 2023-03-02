@@ -1,15 +1,20 @@
 import { Request, Response } from "express";
-import { GetTaxCalculator } from "../../context/TaxCalculator/application/GetTaxCalculator";
-import { VehicleType } from "../../context/TaxCalculator/domain/constants";
 
 import { Controller } from "./Controller";
+
+import { GetTaxCalculator } from "../../context/TaxCalculator/application/GetTaxCalculator";
+import { VehicleType } from "../../context/TaxCalculator/domain/constants";
 
 export class TaxCalculatorPostController implements Controller {
 	async run(req: Request, res: Response) {
 		try {
-			const { vehicleType, dates } = req.body as { vehicleType: VehicleType; dates: Date[] };
+			const { vehicleType, dates, city } = req.body as {
+				vehicleType: VehicleType;
+				dates: Date[];
+				city: string;
+			};
 
-			const taxCalculator = new GetTaxCalculator();
+			const taxCalculator = new GetTaxCalculator(city);
 
 			const taxCalculatorResponse = taxCalculator.execute(vehicleType, dates);
 

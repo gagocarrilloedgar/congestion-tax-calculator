@@ -1,5 +1,5 @@
 import { VehicleType } from "./constants";
-import { getTollFee } from "./getTallFee";
+import { getTollFee, TaxPrices } from "./getTallFee";
 
 export interface ITaxCalculator {
 	getTax(dates: Date[]): number;
@@ -7,12 +7,14 @@ export interface ITaxCalculator {
 
 export class TaxCalculator implements ITaxCalculator {
 	vehicleType: VehicleType;
+	taxPrices: TaxPrices[];
 	MAXIMUM_FEE = 60;
 	MAXIMUM_INTERVAL = 60;
 	MINIMUM_FEE = 0;
 
-	constructor(vehicleType: VehicleType) {
+	constructor(vehicleType: VehicleType, taxPrices: TaxPrices[]) {
 		this.vehicleType = vehicleType;
+		this.taxPrices = taxPrices;
 	}
 
 	private getDailyTax(type: VehicleType, dates: Date[]): number {
@@ -21,7 +23,7 @@ export class TaxCalculator implements ITaxCalculator {
 		for (let i = 0; i < dates.length; i++) {
 			const date = dates[i] as Date;
 			if (i === 0 || this.hasExccededMaxInterval(dates[i - 1], date))
-				totalFee += getTollFee(date, type);
+				totalFee += getTollFee(date, type, this.taxPrices);
 		}
 
 		return totalFee > this.MAXIMUM_FEE ? this.MAXIMUM_FEE : totalFee;

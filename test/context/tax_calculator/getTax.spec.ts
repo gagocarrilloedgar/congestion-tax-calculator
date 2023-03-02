@@ -1,3 +1,5 @@
+import taxRules from "../../../data/taxRules.json";
+
 import {
 	NonTollFreeVehicles,
 	TollFreeVehicles
@@ -33,7 +35,9 @@ const secondIteration = [
 describe("getTax", () => {
 	const globalFormated: Date[] = firstIteration.map((date: string) => new Date(date));
 	const car = NonTollFreeVehicles.Car;
-	const taxCalculator = new TaxCalculator(car);
+	const data = taxRules["Gothenburg"];
+
+	const taxCalculator = new TaxCalculator(car, data);
 
 	it("Should return 76 for the given times", () => {
 		const expected = 76;
@@ -59,7 +63,7 @@ describe("getTax", () => {
 
 	it("Should return 0 if is a toll free Vehicle", () => {
 		const motorbike = TollFreeVehicles.Motorcycle;
-		const taxCalculatorMotorbike = new TaxCalculator(motorbike);
+		const taxCalculatorMotorbike = new TaxCalculator(motorbike, data);
 		const expected = 0;
 		const result = taxCalculatorMotorbike.getTax(globalFormated);
 
