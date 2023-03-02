@@ -1,4 +1,4 @@
-import { isTollFreeDate } from "../../src/Car/domain/isTollFreeDate";
+import { isTollFreeDate } from "../../../src/context/TaxCalculator/domain/isTollFreeDate";
 
 describe("isTollFreeDate", () => {
 	it("If Sunday or Holiday it should return true", () => {
@@ -36,6 +36,14 @@ describe("isTollFreeDate", () => {
 	it("If prior to holiday should return true", () => {
 		const date = new Date("2013-03-27");
 		const expected = true;
+		const result = isTollFreeDate(date);
+
+		expect(result).toBe(expected);
+	});
+
+	it("If month is not inside the list should return false", () => {
+		const date = new Date("2013-02-07");
+		const expected = false;
 		const result = isTollFreeDate(date);
 
 		expect(result).toBe(expected);

@@ -1,6 +1,6 @@
-import { Car } from "../../src/Car/domain/Card";
-import { getTollFee, TaxPrices } from "../../src/Car/domain/getTallFee";
-import Motorbike from "../../src/Car/domain/Motorbike";
+import { Car } from "../../../src/context/TaxCalculator/domain/Card";
+import { getTollFee, TaxPrices } from "../../../src/context/TaxCalculator/domain/getTallFee";
+import Motorbike from "../../../src/context/TaxCalculator/domain/Motorbike";
 
 describe("getTollFee", () => {
 	it("Should return 0 if is a motorbike or a TollFreeVehicle", () => {

@@ -1,7 +1,7 @@
-import { Car } from "../../src/Car/domain/Card";
-import Motorbike from "../../src/Car/domain/Motorbike";
+import { Car } from "../../../src/context/TaxCalculator/domain/Card";
+import Motorbike from "../../../src/context/TaxCalculator/domain/Motorbike";
 
-import { isTollFreeVehicle } from "../../src/Car/domain/isTollFreeVehicle";
+import { isTollFreeVehicle } from "../../../src/context/TaxCalculator/domain/isTollFreeVehicle";
 
 describe("isTollFreeVehicle", () => {
 	it("should return false if Card vehicle", () => {

@@ -10,6 +10,8 @@
 		"lint": "eslint --ignore-path .gitignore . --ext .ts",
 		"lint:fix": "npm run lint -- --fix",
 		"test": "jest --verbose",
+		"test:int": "jest --verbose --testPathPattern=test/apps",
+		"test:unit": "jest --verbose --testPathPattern=test/context",
 		"test:watch": "jest --verbose --watch",
 		"test:coverage": "jest --verbose --watch --coverage"
 	},

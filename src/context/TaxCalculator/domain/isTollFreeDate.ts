@@ -26,7 +26,9 @@ export function isTollFreeDate(date: Date): boolean {
 	const day: number = date.getDay();
 	const dayOfMonth: number = date.getDate();
 
-	if (!TollFreeDates[year]) return false;
+	const yearOrMonthNotAvailable = !TollFreeDates[year] || !TollFreeDates[year][month];
+
+	if (yearOrMonthNotAvailable) return false;
 
 	if (isSundayOrSaturday(day)) return true;
 
