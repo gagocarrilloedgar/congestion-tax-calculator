@@ -1,6 +1,8 @@
 import express from "express";
 import path from "path";
 
+import Router from "express-promise-router";
+
 import { loadApiEndpoints } from "./apps/routes";
 import { ServerConfig } from "./shared/config";
 
@@ -16,6 +18,10 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static(path.join(__dirname, "../public"), { maxAge: 31557600000 }));
 
-loadApiEndpoints(app);
+// API routes
+const router = Router();
+
+app.use(router);
+loadApiEndpoints(router);
 
 export default app;
