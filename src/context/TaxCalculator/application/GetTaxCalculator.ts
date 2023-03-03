@@ -1,4 +1,5 @@
 import * as taxRules from "../../../../data/taxRules.json";
+import { TaxableDate } from "../../Shared/domain/TaxableDate";
 import { Vehicle } from "../../Shared/domain/Vehicle";
 
 import { TaxPrices } from "../domain/getTallFee";
@@ -16,9 +17,9 @@ export class GetTaxCalculator {
 		this.taxPrices = this.getTaxRules(city);
 	}
 
-	execute(vehicle: Vehicle, dates: Date[]): TaxCalculatorResponse {
+	execute(vehicle: Vehicle, dates: Date[], holidayCalendar: string): TaxCalculatorResponse {
 		const taxCalculator = new TaxCalculator(vehicle, this.taxPrices);
-		const formatedDates = dates.map((date) => new Date(date));
+		const formatedDates = dates.map((date) => TaxableDate.fromValue(date, holidayCalendar));
 
 		const taxFee = taxCalculator.getTax(formatedDates);
 

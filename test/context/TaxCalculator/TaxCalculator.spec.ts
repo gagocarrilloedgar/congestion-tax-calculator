@@ -1,4 +1,5 @@
 import taxRules from "../../../data/taxRules.json";
+import { TaxableDate } from "../../../src/context/Shared/domain/TaxableDate";
 import { Vehicle } from "../../../src/context/Shared/domain/Vehicle";
 
 import { TaxCalculator } from "../../../src/context/TaxCalculator/domain/TaxCalculator";
@@ -28,8 +29,10 @@ const secondIteration = [
 	"2013-03-05 06:00:00" // 8 -> = 107 + 8 = 115
 ];
 
-describe("getTax", () => {
-	const globalFormated: Date[] = firstIteration.map((date: string) => new Date(date));
+describe("TaxCalculator", () => {
+	const globalFormated = firstIteration.map((date: string) =>
+		TaxableDate.fromValue(date, "Swedish")
+	);
 	const car = Vehicle.fromValue("Car");
 	const data = taxRules["Gothenburg"];
 
@@ -43,7 +46,9 @@ describe("getTax", () => {
 	});
 
 	it("Should return 115 for the given times", () => {
-		const formatedDates = secondIteration.map((date: string) => new Date(date));
+		const formatedDates = secondIteration.map((date: string) =>
+			TaxableDate.fromValue(date, "Swedish")
+		);
 		const expected = 136;
 		const result = taxCalculator.getTax(formatedDates);
 

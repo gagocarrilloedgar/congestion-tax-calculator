@@ -15,5 +15,6 @@
     "include": [
       "src/**/*",
       "test/**/*",
+      "test/context/TaxCalculator/.spec.ts",
     ]
   }

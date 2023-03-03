@@ -8,15 +8,16 @@ import { GetTaxCalculator } from "../../context/TaxCalculator/application/GetTax
 export class TaxCalculatorPostController implements Controller {
 	async run(req: Request, res: Response) {
 		try {
-			const { vehicleType, dates, city } = req.body as {
+			const { vehicleType, dates, city, holidayCalendar } = req.body as {
 				vehicleType: string;
 				dates: Date[];
 				city: string;
+				holidayCalendar: string;
 			};
 
 			const taxCalculator = new GetTaxCalculator(city);
 			const vehicle = Vehicle.fromValue(vehicleType);
-			const taxCalculatorResponse = taxCalculator.execute(vehicle, dates);
+			const taxCalculatorResponse = taxCalculator.execute(vehicle, dates, holidayCalendar);
 
 			const httpStatus = taxCalculatorResponse.error ? 400 : 200;
 
