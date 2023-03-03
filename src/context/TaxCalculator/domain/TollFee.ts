@@ -1,4 +1,5 @@
-import { TaxableDateType } from "../../Shared/domain/TaxableDateType";
+import { HolidayCalendarType } from "../../Shared/domain/HolidayCalendar";
+import { TaxableDate } from "../../Shared/domain/TaxableDate";
 import { Vehicle } from "../../Shared/domain/Vehicle";
 
 interface Schdeule {
@@ -16,18 +17,18 @@ export interface ITollFee {
 }
 
 export class TollFee {
-	date: TaxableDateType;
+	date: TaxableDate;
 	vehicle: Vehicle;
 	taxRules: TaxPrices[];
 
-	constructor(date: TaxableDateType, vehicle: Vehicle, taxRules: TaxPrices[]) {
+	constructor(date: TaxableDate, vehicle: Vehicle, taxRules: TaxPrices[]) {
 		this.date = date;
 		this.vehicle = vehicle;
 		this.taxRules = taxRules;
 	}
 
-	public compute(): number {
-		if (this.date.isTollFree() || this.vehicle.isTollFree()) return 0;
+	public compute(holidayCalendar: HolidayCalendarType): number {
+		if (this.date.isTollFree(holidayCalendar) || this.vehicle.isTollFree()) return 0;
 
 		const hour: number = this.date.getHours();
 		const minute: number = this.date.getMinutes();

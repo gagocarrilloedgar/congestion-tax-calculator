@@ -3,7 +3,7 @@
       "module": "commonjs",
       "esModuleInterop": true,
       "allowSyntheticDefaultImports": true,
-      "target": "es5",
+      "target": "es6", // This needs to be es6 if we want to be able to extend Date class
       "strict": true,
       "moduleResolution": "node",
       "sourceMap": true,

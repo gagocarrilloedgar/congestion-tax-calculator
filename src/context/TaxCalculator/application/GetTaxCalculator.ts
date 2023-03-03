@@ -1,9 +1,12 @@
-import * as taxRules from "../../../../data/taxRules.json";
+import calendarsData from "../../../../data/holidayCalendars.json";
+import taxRules from "../../../../data/taxRules.json";
+
+import { HolidayCalendars, HolidayCalendarTypes } from "../../Shared/domain/HolidayCalendar";
 import { TaxableDate } from "../../Shared/domain/TaxableDate";
 import { Vehicle } from "../../Shared/domain/Vehicle";
 
-import { TaxPrices } from "../domain/getTallFee";
 import { TaxCalculator } from "../domain/TaxCalculator";
+import { TaxPrices } from "../domain/TollFee";
 import { TaxCalculatorResponse } from "./TaxCalculatorResponse";
 
 export class GetTaxCalculator {
@@ -17,13 +20,21 @@ export class GetTaxCalculator {
 		this.taxPrices = this.getTaxRules(city);
 	}
 
-	execute(vehicle: Vehicle, dates: Date[], holidayCalendar: string): TaxCalculatorResponse {
-		const taxCalculator = new TaxCalculator(vehicle, this.taxPrices);
-		const formatedDates = dates.map((date) => TaxableDate.fromValue(date, holidayCalendar));
+	execute(
+		vehicle: Vehicle,
+		dates: Date[],
+		holidayCalendar: HolidayCalendarTypes
+	): TaxCalculatorResponse {
+		// Here we could load the calendar options from the database, but for now will simple import it from the json file
+		const calendars = new HolidayCalendars(calendarsData);
+		const calendar = calendars.getCalendar(holidayCalendar);
+		const taxCalculator = new TaxCalculator(vehicle, this.taxPrices, calendar);
+
+		const formatedDates = dates.map((date) => new TaxableDate(date));
 
 		const taxFee = taxCalculator.getTax(formatedDates);
 
-		console.log("taxFee", taxFee)
+		console.log("taxFee", taxFee);
 
 		return {
 			taxFee,

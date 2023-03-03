@@ -14,16 +14,16 @@ export enum NonTollFreeVehicleTypes {
 	Tractor = "Tractor"
 }
 
-export type VehicleTypes = TollFreeVehicleTypes | NonTollFreeVehicleTypes;
-
-export const VehicleTypesEnums = {
+export const VehicleTypesEnum = {
 	...TollFreeVehicleTypes,
 	...NonTollFreeVehicleTypes
 };
 
+export type VehicleTypes = keyof typeof VehicleTypesEnum;
+
 export class VehicleType extends EnumValueObject<VehicleTypes> {
 	constructor(value: VehicleTypes) {
-		super(value, Object.keys(VehicleTypesEnums) as VehicleTypes[]);
+		super(value, Object.values(VehicleTypesEnum));
 	}
 
 	public isTollFree(): boolean {
@@ -33,23 +33,11 @@ export class VehicleType extends EnumValueObject<VehicleTypes> {
 		return false;
 	}
 
-	static fromValue(value: string): VehicleType {
-		const vehicleType = Object.values(VehicleTypesEnums).find(
-			(type: NonTollFreeVehicleTypes | TollFreeVehicleTypes) => type === value
-		);
-
-		if (!vehicleType) throw new AppError(`Invalid Vehicle of type ${value}`, 400);
-
-		return new VehicleType(vehicleType);
+	static fromValue(value: VehicleTypes): VehicleType {
+		return new VehicleType(VehicleTypesEnum[value]);
 	}
 
-	protected throwErrorForInvalidValue(value: NonTollFreeVehicleTypes | TollFreeVehicleTypes): void {
+	protected throwErrorForInvalidValue(value: VehicleTypes): void {
 		throw new Error(`Invalid Vehicle of type ${value}`);
-	}
-}
-
-class AppError extends Error {
-	constructor(message: string, public readonly statusCode = 400) {
-		super(message);
 	}
 }

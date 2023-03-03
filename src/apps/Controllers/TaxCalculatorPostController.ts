@@ -2,17 +2,20 @@ import { Request, Response } from "express";
 
 import { Controller } from "./Controller";
 
+import { HolidayCalendarTypes } from "../../context/Shared/domain/HolidayCalendar";
 import { Vehicle } from "../../context/Shared/domain/Vehicle";
+import { VehicleTypes } from "../../context/Shared/domain/VehicleType";
+
 import { GetTaxCalculator } from "../../context/TaxCalculator/application/GetTaxCalculator";
 
 export class TaxCalculatorPostController implements Controller {
 	async run(req: Request, res: Response) {
 		try {
 			const { vehicleType, dates, city, holidayCalendar } = req.body as {
-				vehicleType: string;
+				vehicleType: VehicleTypes;
 				dates: Date[];
 				city: string;
-				holidayCalendar: string;
+				holidayCalendar: HolidayCalendarTypes;
 			};
 
 			const taxCalculator = new GetTaxCalculator(city);
