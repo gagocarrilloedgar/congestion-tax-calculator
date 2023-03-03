@@ -38,12 +38,18 @@ export class VehicleType extends EnumValueObject<VehicleTypes> {
 			(type: NonTollFreeVehicleTypes | TollFreeVehicleTypes) => type === value
 		);
 
-		if (!vehicleType) throw new Error(`Invalid Vehicle of type ${value}`);
+		if (!vehicleType) throw new AppError(`Invalid Vehicle of type ${value}`, 400);
 
 		return new VehicleType(vehicleType);
 	}
 
 	protected throwErrorForInvalidValue(value: NonTollFreeVehicleTypes | TollFreeVehicleTypes): void {
 		throw new Error(`Invalid Vehicle of type ${value}`);
+	}
+}
+
+class AppError extends Error {
+	constructor(message: string, public readonly statusCode = 400) {
+		super(message);
 	}
 }

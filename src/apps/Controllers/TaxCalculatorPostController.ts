@@ -18,7 +18,6 @@ export class TaxCalculatorPostController implements Controller {
 			const taxCalculator = new GetTaxCalculator(city);
 			const vehicle = Vehicle.fromValue(vehicleType);
 			const taxCalculatorResponse = taxCalculator.execute(vehicle, dates, holidayCalendar);
-
 			const httpStatus = taxCalculatorResponse.error ? 400 : 200;
 
 			res.status(httpStatus).send({

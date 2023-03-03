@@ -23,6 +23,8 @@ export class GetTaxCalculator {
 
 		const taxFee = taxCalculator.getTax(formatedDates);
 
+		console.log("taxFee", taxFee)
+
 		return {
 			taxFee,
 			vehicleType: vehicle.getType(),
