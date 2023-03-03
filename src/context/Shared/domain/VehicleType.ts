@@ -1,3 +1,4 @@
+import AppError from "./AppError";
 import { EnumValueObject } from "./EnumValueObject";
 
 export enum TollFreeVehicleTypes {
@@ -38,6 +39,6 @@ export class VehicleType extends EnumValueObject<VehicleTypes> {
 	}
 
 	protected throwErrorForInvalidValue(value: VehicleTypes): void {
-		throw new Error(`Invalid Vehicle of type ${value}`);
+		throw new AppError(`Invalid vehicle type: ${value}`, 415);
 	}
 }

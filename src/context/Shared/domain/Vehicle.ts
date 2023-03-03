@@ -1,4 +1,8 @@
-import { NonTollFreeVehicleTypes, VehicleType, VehicleTypes } from "./VehicleType";
+import {
+	NonTollFreeVehicleTypes,
+	VehicleType,
+	VehicleTypes
+} from "./VehicleType";
 
 export class Vehicle {
 	readonly type: VehicleType;

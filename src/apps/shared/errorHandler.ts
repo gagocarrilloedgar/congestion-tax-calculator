@@ -22,7 +22,7 @@ export const errorHandler = (err: any, _req: Request, res: Response, _next: Next
 		...(!config.IS_PRODUCTION && { stack: err.stack })
 	};
 
-	if (!config.IS_PRODUCTION) console.error(err);
+	if (config.IS_DEVELOPMENT) console.error(err);
 
 	res.status(statusCode).json({ error: response });
 };

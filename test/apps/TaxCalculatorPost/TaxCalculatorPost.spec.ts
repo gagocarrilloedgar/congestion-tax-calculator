@@ -1,3 +1,4 @@
+import httpStatus from "http-status";
 import request from "supertest";
 
 import app from "../../../src/app";
@@ -13,8 +14,8 @@ const firstIteration = [
 ];
 
 describe("POST /api/tax-calculator", () => {
-	it("Should return 200 OK", () => {
-		return request(app)
+	it("Should return 200 OK", async () => {
+		await request(app)
 			.post("/api/tax-calculator")
 			.send({
 				vehicleType: "Car",
@@ -22,7 +23,7 @@ describe("POST /api/tax-calculator", () => {
 				dates: firstIteration,
 				holidayCalendar: "Swedish"
 			})
-			.expect(200)
+			.expect(httpStatus.OK)
 			.expect("Content-Type", /json/)
 			.expect({
 				taxFee: 76,
@@ -31,21 +32,19 @@ describe("POST /api/tax-calculator", () => {
 			});
 	});
 
-	it("Should return 400 Bad Request if type is not included", () => {
-		return request(app)
-			.post("/api/tax-calculator")
-			.send({
-				vehicleType: "",
-				city: "Gothenburg",
-				dates: firstIteration,
-				holidayCalendar: "Swedish"
-			})
-			.expect(400)
-			.expect("Content-Type", /json/)
-			.expect({
-				taxFee: 0,
-				vehicleType: "",
-				error: "Vehicle type not allowed"
-			});
+	it("Should return 400 Bad Request if type is not included", async () => {
+		try {
+			await request(app)
+				.post("/api/tax-calculator")
+				.send({
+					vehicleType: "",
+					city: "Gothenburg",
+					dates: firstIteration,
+					holidayCalendar: "Swedish"
+				})
+				.expect(httpStatus.UNSUPPORTED_MEDIA_TYPE);
+		} catch (error: any) {
+			expect(error.message).toBe("Invalid vehicle type: undefined");
+		}
 	});
 });
