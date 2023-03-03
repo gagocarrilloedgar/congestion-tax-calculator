@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import { TaxCalculatorPostController } from "../Controllers/TaxCalculatorPostController";
+import { TaxCalculatorPostController } from "../controllers/TaxCalculatorPostController";
 
 export const registerTaxCalculorRoutes = (app: Router) => {
 	const controller = new TaxCalculatorPostController();

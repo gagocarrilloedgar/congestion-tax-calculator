@@ -1,7 +1,7 @@
 import date from "../../../data/holidayCalendars.json";
 
-import { HolidayCalendars } from "../../../src/context/Shared/domain/HolidayCalendar";
-import { TaxableDate } from "../../../src/context/Shared/domain/TaxableDate";
+import { HolidayCalendars } from "../../../src/context/shared/domain/HolidayCalendar";
+import { TaxableDate } from "../../../src/context/shared/domain/TaxableDate";
 
 describe("isTollFreeDate", () => {
 	const availableCalendars = new HolidayCalendars(date);

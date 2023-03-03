@@ -1,4 +1,4 @@
-import { Vehicle } from "../../../src/context/Shared/domain/Vehicle";
+import { Vehicle } from "../../../src/context/shared/domain/Vehicle";
 
 describe("isTollFreeVehicle", () => {
 	it("Should return false if Card vehicle", () => {

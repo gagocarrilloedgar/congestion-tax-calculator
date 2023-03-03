@@ -1,6 +1,6 @@
 import { Router } from "express";
 
-import { StatusGetController } from "../Controllers/StatusGetController";
+import { StatusGetController } from "../controllers/StatusGetController";
 
 export const registerStatusRoutes = (app: Router) => {
 	const controller = new StatusGetController();

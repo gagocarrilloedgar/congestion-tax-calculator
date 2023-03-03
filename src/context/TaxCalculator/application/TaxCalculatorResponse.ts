@@ -1,4 +1,4 @@
-import { VehicleTypes } from "../../Shared/domain/VehicleType";
+import { VehicleTypes } from "../../shared/domain/VehicleType";
 
 export interface TaxCalculatorResponse {
 	taxFee: number;

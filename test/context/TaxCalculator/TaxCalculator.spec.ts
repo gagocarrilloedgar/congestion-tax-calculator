@@ -1,9 +1,9 @@
 import holydaysData from "../../../data/holidayCalendars.json";
 import taxRules from "../../../data/taxRules.json";
 
-import { HolidayCalendars } from "../../../src/context/Shared/domain/HolidayCalendar";
-import { TaxableDate } from "../../../src/context/Shared/domain/TaxableDate";
-import { Vehicle } from "../../../src/context/Shared/domain/Vehicle";
+import { HolidayCalendars } from "../../../src/context/shared/domain/HolidayCalendar";
+import { TaxableDate } from "../../../src/context/shared/domain/TaxableDate";
+import { Vehicle } from "../../../src/context/shared/domain/Vehicle";
 
 import { TaxCalculator } from "../../../src/context/TaxCalculator/domain/TaxCalculator";
 

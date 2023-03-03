@@ -1,9 +1,9 @@
 import calendarsData from "../../../../data/holidayCalendars.json";
 import taxRules from "../../../../data/taxRules.json";
 
-import { HolidayCalendars, HolidayCalendarTypes } from "../../Shared/domain/HolidayCalendar";
-import { TaxableDate } from "../../Shared/domain/TaxableDate";
-import { Vehicle } from "../../Shared/domain/Vehicle";
+import { HolidayCalendars, HolidayCalendarTypes } from "../../shared/domain/HolidayCalendar";
+import { TaxableDate } from "../../shared/domain/TaxableDate";
+import { Vehicle } from "../../shared/domain/Vehicle";
 
 import { TaxCalculator } from "../domain/TaxCalculator";
 import { TaxPrices } from "../domain/TollFee";

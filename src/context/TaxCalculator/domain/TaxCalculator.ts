@@ -1,8 +1,8 @@
 import { TaxPrices, TollFee } from "./TollFee";
 
-import { HolidayCalendarType } from "../../Shared/domain/HolidayCalendar";
-import { TaxableDate } from "../../Shared/domain/TaxableDate";
-import { Vehicle } from "../../Shared/domain/Vehicle";
+import { HolidayCalendarType } from "../../shared/domain/HolidayCalendar";
+import { TaxableDate } from "../../shared/domain/TaxableDate";
+import { Vehicle } from "../../shared/domain/Vehicle";
 
 export interface ITaxCalculator {
 	getTax(dates: TaxableDate[]): number;

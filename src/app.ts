@@ -4,7 +4,9 @@ import path from "path";
 import Router from "express-promise-router";
 
 import { loadApiEndpoints } from "./apps/routes";
-import { ServerConfig } from "./shared/config";
+import { ServerConfig } from "./apps/shared/config";
+import { errorConverter } from "./apps/shared/erroConverter";
+import { errorHandler } from "./apps/shared/errorHandler";
 
 // Create Express server
 const config = new ServerConfig();
@@ -23,5 +25,11 @@ const router = Router();
 
 app.use(router);
 loadApiEndpoints(router);
+
+// Convert error to AppError
+router.use(errorConverter);
+
+// Handle error
+router.use(errorHandler);
 
 export default app;
