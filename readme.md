@@ -138,7 +138,7 @@ npm run lint:fix
 [x] Add Exception handler to the server
 [x] Add 404 route handler
 [x] Create general holiday calendar handler
-
+ 
 - Add more route security and documentation (ts-openapi). This allows to create Swagger documentation and request validation re-using schemas
 - Add dependency injection library (node-dependency-injection, inversify or similar): https://pro.codely.com/library/typescript-avanzado-mas-alla-de-any-182513/418230/path/step/181818319/
 - Add conventional commit lintern (commitlint)

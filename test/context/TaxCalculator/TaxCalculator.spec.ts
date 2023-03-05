@@ -6,35 +6,13 @@ import { TaxableDate } from "../../../src/context/shared/domain/TaxableDate";
 import { Vehicle } from "../../../src/context/shared/domain/Vehicle";
 import { TaxCalculator } from "../../../src/context/TaxCalculator/domain/TaxCalculator";
 
-const firstIteration = [
-	"2013-01-14 06:00:00", // 8
-	"2013-01-14 08:00:00", // 18 -> = 8 + 18 = 26
-	"2013-01-14 15:30:00", // 18 -> = 26 + 18 = 44
-	"2013-01-14 17:00:00", // 13 -> = 44 + 13 = 57
-	"2013-01-14 18:00:00", // 8 -> = 57 + 8 = 65
-	"2013-02-15 06:00:00", // 8 -> = 60 + 8 = 68
-	"2013-02-07 06:00:00" // 8 -> = 68 + 8 = 76
-];
-
-const secondIteration = [
-	"2013-01-14 06:00:00", // 8
-	"2013-01-14 08:00:00", // 18 -> = 8 + 18 = 26
-	"2013-01-14 15:30:00", // 18 -> = 26 + 18 = 44
-	"2013-01-14 17:00:00", // 13 -> = 44 + 13 = 57
-	"2013-01-14 18:00:00", // 8 -> = 57 + 8 = 65
-	"2013-02-15 06:00:00", // 8 -> = 60 + 8 = 68
-	"2013-02-15 07:00:00", // 18 -> = 68 + 18 = 86
-	"2013-02-15 07:00:00", // 18 -> = 68 + 18 = 86
-	"2013-02-15 07:00:00", // 18 -> = 68 + 18 = 86
-	"2013-02-15 08:00:00", // 13 -> = 86 + 13 = 99
-	"2013-03-01 06:00:00", // 8 -> = 99 + 8 = 107
-	"2013-03-05 06:00:00" // 8 -> = 107 + 8 = 115
-];
+import { mockData } from "../../fixtures/mockData";
 
 describe("TaxCalculator", () => {
 	const swedishCalendar = holydaysData.Swedish as HolidayCalendarType;
+	const { firstUseCase, secondUseCase } = mockData;
 
-	const globalFormated = firstIteration.map((date: string) => new TaxableDate(date));
+	const globalFormated = firstUseCase.map((date: string) => new TaxableDate(date));
 	const car = Vehicle.fromValue("Car");
 	const data = taxRules["Gothenburg"];
 
@@ -48,7 +26,7 @@ describe("TaxCalculator", () => {
 	});
 
 	it("Should return 115 for the given times", () => {
-		const formatedDates = secondIteration.map((date: string) => new TaxableDate(date));
+		const formatedDates = secondUseCase.map((date: string) => new TaxableDate(date));
 		const expected = 136;
 		const result = taxCalculator.getTax(formatedDates);
 
