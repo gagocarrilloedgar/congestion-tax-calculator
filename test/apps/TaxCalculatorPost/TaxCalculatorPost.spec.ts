@@ -27,8 +27,7 @@ describe("POST /api/tax-calculator", () => {
 			.expect("Content-Type", /json/)
 			.expect({
 				taxFee: 76,
-				vehicleType: "Car",
-				error: null
+				vehicleType: "Car"
 			});
 	});
 

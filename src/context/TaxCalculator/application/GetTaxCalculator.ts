@@ -28,8 +28,13 @@ export class GetTaxCalculator {
 		const repository = new InMemoryTaxCalendarRepository();
 		const taxRepository = new InMemoryTaxRepository();
 
-		const calendar = await repository.search(holidayCalendar);
-		const taxPricesSchdule = await taxRepository.search(this.city);
+		const calendarPromise = await repository.search(holidayCalendar);
+		const taxPricesSchdulePromise = await taxRepository.search(this.city);
+
+		const [calendar, taxPricesSchdule] = await Promise.all([
+			calendarPromise,
+			taxPricesSchdulePromise
+		]);
 
 		const taxCalculator = new TaxCalculator(vehicle, taxPricesSchdule, calendar);
 
@@ -37,8 +42,7 @@ export class GetTaxCalculator {
 
 		return {
 			taxFee,
-			vehicleType: vehicle.getType(),
-			error: null
+			vehicleType: vehicle.getType()
 		};
 	}
 }

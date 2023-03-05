@@ -5,6 +5,7 @@ import { Controller } from "./Controller";
 import { HolidayCalendarTypes } from "../../context/shared/domain/HolidayCalendar";
 import { VehicleTypes } from "../../context/shared/domain/VehicleType";
 
+import httpStatus from "http-status";
 import { GetTaxCalculator } from "../../context/TaxCalculator/application/GetTaxCalculator";
 
 export class TaxCalculatorPostController implements Controller {
@@ -19,12 +20,10 @@ export class TaxCalculatorPostController implements Controller {
 		const taxCalculator = new GetTaxCalculator(city, vehicleType);
 
 		const taxCalculatorResponse = await taxCalculator.execute(dates, holidayCalendar);
-		const httpStatus = taxCalculatorResponse.error ? 400 : 200;
 
-		res.status(httpStatus).send({
+		res.status(httpStatus.OK).send({
 			taxFee: taxCalculatorResponse.taxFee,
-			vehicleType: taxCalculatorResponse.vehicleType,
-			error: taxCalculatorResponse.error
+			vehicleType: taxCalculatorResponse.vehicleType
 		});
 	}
 }
