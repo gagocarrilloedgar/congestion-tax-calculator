@@ -13,11 +13,7 @@ export interface HolidayCalendarsTypes {
 	[calendar: string]: HolidayCalendarType;
 }
 
-export interface IHolidayCalendars {
-	getCalendar(calendar: keyof typeof HolidayCalendarTypes): HolidayCalendarType;
-}
-
-export class HolidayCalendars implements IHolidayCalendars {
+export class HolidayCalendars {
 	calendars: HolidayCalendarsTypes;
 
 	constructor(calendars: HolidayCalendarsTypes) {

@@ -1,36 +1,41 @@
-import calendarsData from "../../../../data/holidayCalendars.json";
-import taxRules from "../../../../data/taxRules.json";
-
 import { HolidayCalendars, HolidayCalendarTypes } from "../../shared/domain/HolidayCalendar";
 import { TaxableDate } from "../../shared/domain/TaxableDate";
 import { Vehicle } from "../../shared/domain/Vehicle";
 
+import { InMemoryTaxCalendarRepository } from "../infrastructure/InMemoryTaxCalendarRepository";
+import { InMemoryTaxRepository } from "../infrastructure/InMemoryTaxRepository";
+
+import { VehicleTypes } from "../../shared/domain/VehicleType";
 import { TaxCalculator } from "../domain/TaxCalculator";
-import { TaxPrices } from "../domain/TollFee";
+import { TaxRules } from "../domain/TaxRules";
 import { TaxCalculatorResponse } from "./TaxCalculatorResponse";
 
 export class GetTaxCalculator {
 	city: string;
-	taxRules: { [key: string]: TaxPrices[] };
-	taxPrices: TaxPrices[];
+	vehicleType: VehicleTypes;
 
-	constructor(city: string) {
+	constructor(city: string, vehicleType: VehicleTypes) {
 		this.city = city;
-		this.taxRules = taxRules as unknown as { [key: string]: TaxPrices[] };
-		this.taxPrices = this.getTaxRules(city);
+		this.vehicleType = vehicleType;
 	}
 
-	execute(
-		vehicle: Vehicle,
-		dates: Date[],
-		holidayCalendar: HolidayCalendarTypes
-	): TaxCalculatorResponse {
-		// Here we could load the calendar options from the database, but for now will simple import it from the json file
+	execute(dates: Date[], holidayCalendar: HolidayCalendarTypes): TaxCalculatorResponse {
+		const formatedDates = dates.map((date) => new TaxableDate(date));
+		const vehicle = Vehicle.fromValue(this.vehicleType);
+
+		const repository = new InMemoryTaxCalendarRepository();
+		const calendarsData = repository.search();
+
+		const taxRepository = new InMemoryTaxRepository();
+		const rules = taxRepository.search();
+
+		const tax = new TaxRules(this.city);
+		const taxPricesSchdule = tax.getSchedule(rules);
+
 		const calendars = new HolidayCalendars(calendarsData);
 		const calendar = calendars.getCalendar(holidayCalendar);
-		const taxCalculator = new TaxCalculator(vehicle, this.taxPrices, calendar);
 
-		const formatedDates = dates.map((date) => new TaxableDate(date));
+		const taxCalculator = new TaxCalculator(vehicle, taxPricesSchdule, calendar);
 
 		const taxFee = taxCalculator.getTax(formatedDates);
 
@@ -40,11 +45,4 @@ export class GetTaxCalculator {
 			error: null
 		};
 	}
-
-	private getTaxRules = (city: string): TaxPrices[] => {
-		const allowedCities = Object.keys(this.taxRules);
-		const isAllowedCity = allowedCities.includes(city);
-
-		return isAllowedCity ? this.taxRules[city] : this.taxRules["Gothenburg"];
-	};
 }

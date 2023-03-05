@@ -1,8 +1,9 @@
-import { TaxPrices, TollFee } from "./TollFee";
+import { TaxFee } from "./TaxFee";
 
 import { HolidayCalendarType } from "../../shared/domain/HolidayCalendar";
 import { TaxableDate } from "../../shared/domain/TaxableDate";
 import { Vehicle } from "../../shared/domain/Vehicle";
+import { TaxPricesSchedule } from "./TaxRules";
 
 export interface ITaxCalculator {
 	getTax(dates: TaxableDate[]): number;
@@ -10,13 +11,13 @@ export interface ITaxCalculator {
 
 export class TaxCalculator implements ITaxCalculator {
 	vehicle: Vehicle;
-	taxPrices: TaxPrices[];
+	taxPrices: TaxPricesSchedule;
 	MAXIMUM_FEE = 60;
 	MAXIMUM_INTERVAL = 60;
 	MINIMUM_FEE = 0;
 	calendar: HolidayCalendarType;
 
-	constructor(vehicle: Vehicle, taxPrices: TaxPrices[], calendar: HolidayCalendarType) {
+	constructor(vehicle: Vehicle, taxPrices: TaxPricesSchedule, calendar: HolidayCalendarType) {
 		this.vehicle = vehicle;
 		this.taxPrices = taxPrices;
 		this.calendar = calendar;
@@ -49,8 +50,9 @@ export class TaxCalculator implements ITaxCalculator {
 		for (let i = 0; i < dates.length; i++) {
 			const date = dates[i];
 			if (i === 0 || this.hasExccededMaxInterval(dates[i - 1], date)) {
-				const tollFee = new TollFee(date, this.vehicle, this.taxPrices).compute(this.calendar);
-				totalFee += tollFee;
+				const taxFee = new TaxFee(date, this.vehicle, this.taxPrices);
+				const computedFee = taxFee.compute(this.calendar);
+				totalFee += computedFee;
 			}
 		}
 

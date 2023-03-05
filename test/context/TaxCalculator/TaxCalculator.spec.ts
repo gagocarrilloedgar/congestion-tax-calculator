@@ -1,5 +1,5 @@
 import holydaysData from "../../../data/holidayCalendars.json";
-import taxRules from "../../../data/taxRules.json";
+import taxRules from "../../../data/taxes.json";
 
 import { HolidayCalendars } from "../../../src/context/shared/domain/HolidayCalendar";
 import { TaxableDate } from "../../../src/context/shared/domain/TaxableDate";

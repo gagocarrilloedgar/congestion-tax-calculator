@@ -2,29 +2,21 @@ import { HolidayCalendarType } from "../../shared/domain/HolidayCalendar";
 import { TaxableDate } from "../../shared/domain/TaxableDate";
 import { Vehicle } from "../../shared/domain/Vehicle";
 
-interface Schdeule {
-	start: string;
-	end: string;
-}
+import { Schdeule, TaxPricesSchedule } from "./TaxRules";
 
-export interface TaxPrices {
-	price: number;
-	schedule: Schdeule[];
-}
-
-export interface ITollFee {
+export interface ITaxFee {
 	compute(): number;
 }
 
-export class TollFee {
+export class TaxFee {
 	date: TaxableDate;
 	vehicle: Vehicle;
-	taxRules: TaxPrices[];
+	taxPricesSchedule: TaxPricesSchedule;
 
-	constructor(date: TaxableDate, vehicle: Vehicle, taxRules: TaxPrices[]) {
+	constructor(date: TaxableDate, vehicle: Vehicle, taxPricesSchedule: TaxPricesSchedule) {
 		this.date = date;
 		this.vehicle = vehicle;
-		this.taxRules = taxRules;
+		this.taxPricesSchedule = taxPricesSchedule;
 	}
 
 	public compute(holidayCalendar: HolidayCalendarType): number {
@@ -33,7 +25,7 @@ export class TollFee {
 		const hour: number = this.date.getHours();
 		const minute: number = this.date.getMinutes();
 
-		const priceSchdule = this.taxRules.find((rule: any) => {
+		const priceSchdule = this.taxPricesSchedule.find((rule: any) => {
 			return rule.schedule.find((schedule: Schdeule) => {
 				const startingTime = this.getHoursAndMinutes(schedule.start);
 				const endingTime = this.getHoursAndMinutes(schedule.end);
