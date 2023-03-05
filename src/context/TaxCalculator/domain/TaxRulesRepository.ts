@@ -1,5 +1,5 @@
-import { AvailableTaxPriceRules } from "./TaxRules";
+import { TaxRules } from "./TaxRules";
 
 export interface TaxRulesRepository {
-	search(): AvailableTaxPriceRules;
+	search(city: string): Promise<TaxRules>;
 }

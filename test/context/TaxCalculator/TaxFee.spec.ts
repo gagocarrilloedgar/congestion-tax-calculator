@@ -1,7 +1,7 @@
-import date from "../../../data/holidayCalendars.json";
+import holydaysData from "../../../data/holidayCalendars.json";
 import taxRules from "../../../data/taxes.json";
 
-import { HolidayCalendars } from "../../../src/context/shared/domain/HolidayCalendar";
+import { HolidayCalendarType } from "../../../src/context/shared/domain/HolidayCalendar";
 import { TaxableDate } from "../../../src/context/shared/domain/TaxableDate";
 import { Vehicle } from "../../../src/context/shared/domain/Vehicle";
 import { TaxFee } from "../../../src/context/TaxCalculator/domain/TaxFee";
@@ -10,8 +10,7 @@ describe("getTollFee", () => {
 	const car = Vehicle.fromValue("Car");
 	const data = taxRules["Gothenburg"];
 
-	const availableCalendars = new HolidayCalendars(date);
-	const swedishCalendar = availableCalendars.getCalendar("Swedish");
+	const swedishCalendar = holydaysData.Swedish as HolidayCalendarType;
 
 	it("Should return 0 if is a motorbike or a TollFreeVehicle", () => {
 		const date = new TaxableDate("2013-01-03 08:00");

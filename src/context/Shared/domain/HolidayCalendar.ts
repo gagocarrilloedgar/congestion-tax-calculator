@@ -12,15 +12,3 @@ export interface HolidayCalendarType {
 export interface HolidayCalendarsTypes {
 	[calendar: string]: HolidayCalendarType;
 }
-
-export class HolidayCalendars {
-	calendars: HolidayCalendarsTypes;
-
-	constructor(calendars: HolidayCalendarsTypes) {
-		this.calendars = calendars;
-	}
-
-	public getCalendar(calendar: keyof typeof HolidayCalendarTypes): HolidayCalendarType {
-		return this.calendars[calendar];
-	}
-}

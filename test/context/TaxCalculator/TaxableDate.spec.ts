@@ -1,11 +1,11 @@
-import date from "../../../data/holidayCalendars.json";
+import holydaysData from "../../../data/holidayCalendars.json";
 
-import { HolidayCalendars } from "../../../src/context/shared/domain/HolidayCalendar";
+import { HolidayCalendarType } from "../../../src/context/shared/domain/HolidayCalendar";
 import { TaxableDate } from "../../../src/context/shared/domain/TaxableDate";
 
 describe("isTollFreeDate", () => {
-	const availableCalendars = new HolidayCalendars(date);
-	const swedishCalendar = availableCalendars.getCalendar("Swedish");
+	// This is not important for the testing of the TaxableDate class
+	const swedishCalendar = holydaysData.Swedish as HolidayCalendarType;
 
 	it("If Sunday or Holiday it should return true", () => {
 		const date = new TaxableDate("2013-01-01");

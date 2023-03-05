@@ -1,10 +1,9 @@
 import holydaysData from "../../../data/holidayCalendars.json";
 import taxRules from "../../../data/taxes.json";
 
-import { HolidayCalendars } from "../../../src/context/shared/domain/HolidayCalendar";
+import { HolidayCalendarType } from "../../../src/context/shared/domain/HolidayCalendar";
 import { TaxableDate } from "../../../src/context/shared/domain/TaxableDate";
 import { Vehicle } from "../../../src/context/shared/domain/Vehicle";
-
 import { TaxCalculator } from "../../../src/context/TaxCalculator/domain/TaxCalculator";
 
 const firstIteration = [
@@ -33,8 +32,7 @@ const secondIteration = [
 ];
 
 describe("TaxCalculator", () => {
-	const availableCalendars = new HolidayCalendars(holydaysData);
-	const swedishCalendar = availableCalendars.getCalendar("Swedish");
+	const swedishCalendar = holydaysData.Swedish as HolidayCalendarType;
 
 	const globalFormated = firstIteration.map((date: string) => new TaxableDate(date));
 	const car = Vehicle.fromValue("Car");

@@ -133,13 +133,13 @@ npm run lint:fix
 ## To Do
 
 [x] Apply general OOP and best practices
+[x] Add integration layer to properly handle the injection and retrieve of the data: add differents repositories to be able to handle file or db getters
+[x] Add async router so we can avoid doing try-catch on every single route (express-async-router)
+[x] Add Exception handler to the server
+[x] Add 404 route handler
+[x] Create general holiday calendar handler
 
-- Add integration layer to properly handle the injection and retrieve of the data: add differents repositories to be able to handle file or db getters
 - Add more route security and documentation (ts-openapi). This allows to create Swagger documentation and request validation re-using schemas
-  [x] Add async router so we can avoid doing try-catch on every single route (express-async-router)
 - Add dependency injection library (node-dependency-injection, inversify or similar): https://pro.codely.com/library/typescript-avanzado-mas-alla-de-any-182513/418230/path/step/181818319/
-  [x] Add Exception handler to the server
-  [x] Add 404 route handler
 - Add conventional commit lintern (commitlint)
-  [x] Create general holiday calendar handler
 - Dockerize app

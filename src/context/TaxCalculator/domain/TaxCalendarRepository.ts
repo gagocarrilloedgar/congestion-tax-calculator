@@ -1,5 +1,5 @@
-import { HolidayCalendarsTypes } from "../../shared/domain/HolidayCalendar";
+import { HolidayCalendarType, HolidayCalendarTypes } from "../../shared/domain/HolidayCalendar";
 
 export interface TaxCalendarRepository {
-	search(): HolidayCalendarsTypes;
+	search(calendarType: keyof typeof HolidayCalendarTypes): Promise<HolidayCalendarType>;
 }
